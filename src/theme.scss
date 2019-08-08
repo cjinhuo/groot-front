@@ -1,0 +1,52 @@
+/*
+Write your variables here. All available variables can be
+found in element-ui/packages/theme-chalk/src/common/var.scss.
+For example, to overwrite the theme color:
+*/
+
+$--color-primary: #3090ee;
+$--background-color-custom: #19294A;
+
+@import "~element-ui/packages/theme-chalk/src/common/var.scss";
+
+// Menu
+$--menu-item-color: $--color-white;
+$--menu-item-fill: $--background-color-custom;
+$--menu-item-hover-fill: $--color-primary;
+
+// Table
+$--table-header-color: $--color-text-primary;
+$--table-header-background: $--background-color-base;
+$--table-current-row-background: $--background-color-base;
+
+// Dialog
+$--dialog-title-font-size: $--font-size-base;
+$--dialog-font-size: $--font-size-extra-small;
+
+// Message
+$--message-min-width: auto;
+
+// Popover
+$--popover-font-size: $--font-size-extra-small;
+
+// Tooltip
+$--tooltip-fill: $--color-white;
+$--tooltip-border-color: $--color-white;
+
+// Radio
+$--radio-font-size: $--font-size-extra-small;
+$--radio-checked-font-color: $--color-text-regular;
+$--radio-checked-input-border-color: #20A0FF;
+$--radio-checked-icon-color: #20A0FF;
+$--radio-input-border-color-hover: #20A0FF;
+
+// Checkbox
+$--checkbox-font-size: $--font-size-extra-small;
+$--checkbox-checked-text-color: $--color-text-regular;
+$--checkbox-checked-input-fill: #20A0FF;
+$--checkbox-input-border-color-hover: #20A0FF;
+
+/* icon font path, required */
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+
+@import "~element-ui/packages/theme-chalk/src/index";
