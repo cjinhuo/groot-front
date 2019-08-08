@@ -1,5 +1,5 @@
-# cli3-template
-
+# 基于swagger生成api函数模板的代码
+后台提供提炼出来的参数，怎么组装完全是靠前端发送的字符串来定义。
 ## Project setup
 ```
 npm install

@@ -1,0 +1,19 @@
+# 当用IDE打开一个文件时，EditorConfig插件会在打开文件的目录和
+# 其每一级父节点查找.editorconfig文件
+# 直到找到一个配置了root = true的配置文件。
+# 所以每一层文件都可以加个editorconfig
+root = true
+# 包含的文件[*]表示所有
+[*]
+# indent =》 缩进
+indent_style = space
+indent_size = 2
+# tab_width = 2 # 通常不指定，默认值为indent_size
+charset = utf-8
+# 设置为true以确保文件在保存时以换行符结束，后面包含的文件名包括[*.{...}]
+insert_final_newline = true[*.{js,jsx,ts,tsx,vue}]
+# 因为每个系统的换行符有区别，Unix每行结尾为’\n‘，Windows系统每行结尾是“\r\n”， Mac系统每行结尾是'\r'
+end_of_line = cr
+# 设置为true时不允许有空行存在
+trim_trailing_whitespace = true
+max_line_length = 100

@@ -1,5 +1,6 @@
 <template lang="pug">
   #app
+    router-view
     .swagger-test
       el-collapse(
         v-model="activeNames"
