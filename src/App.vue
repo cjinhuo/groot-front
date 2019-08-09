@@ -1,48 +1,48 @@
 <template lang="pug">
   #app
     router-view
-    .swagger-test
-      el-collapse(
-        v-model="activeNames"
-      )
-        el-collapse-item(
-          title="Get /ops/supply/getById/{supplyId} path:supplyId query:projectId  根据补数据id获取补数据实例"
-        )
-          div
-            el-input(
-              type="textarea"
-              v-model="getFormatter"
-              show-word-limit
-              maxlength="200"
-              style="width:600px;"
-          )
-            el-input(
-              :disabled="true"
-              type="textarea"
-              v-model="getFormatterResult"
-              show-word-limit
-              style="width:600px;"
-              maxlength="200"
-            )
-        el-collapse-item(
-          title="Post /ops/job/addBaseline body:[baseLineId, jobIds, projectId]  任务添加到基线"
-        )
-          div
-            el-input(
-              type="textarea"
-              v-model="getFormatter"
-              show-word-limit
-              maxlength="200"
-              style="width:600px;"
-          )
-            el-input(
-              :disabled="true"
-              type="textarea"
-              v-model="postFormatter"
-              show-word-limit
-              style="width:600px;"
-              maxlength="200"
-            )
+    //- .swagger-test
+    //-   el-collapse(
+    //-     v-model="activeNames"
+    //-   )
+    //-     el-collapse-item(
+    //-       title="Get /ops/supply/getById/{supplyId} path:supplyId query:projectId  根据补数据id获取补数据实例"
+    //-     )
+    //-       div
+    //-         el-input(
+    //-           type="textarea"
+    //-           v-model="getFormatter"
+    //-           show-word-limit
+    //-           maxlength="200"
+    //-           style="width:600px;"
+    //-       )
+    //-         el-input(
+    //-           :disabled="true"
+    //-           type="textarea"
+    //-           v-model="getFormatterResult"
+    //-           show-word-limit
+    //-           style="width:600px;"
+    //-           maxlength="200"
+    //-         )
+    //-     el-collapse-item(
+    //-       title="Post /ops/job/addBaseline body:[baseLineId, jobIds, projectId]  任务添加到基线"
+    //-     )
+    //-       div
+    //-         el-input(
+    //-           type="textarea"
+    //-           v-model="getFormatter"
+    //-           show-word-limit
+    //-           maxlength="200"
+    //-           style="width:600px;"
+    //-       )
+    //-         el-input(
+    //-           :disabled="true"
+    //-           type="textarea"
+    //-           v-model="postFormatter"
+    //-           show-word-limit
+    //-           style="width:600px;"
+    //-           maxlength="200"
+    //-         )
     //- .test '111'
     //-   el-button 1231
     //-   el-table
@@ -149,24 +149,24 @@ export default {
   mounted() {
     const baseUrl =
             'https://www.easy-mock.com/mock/5b7a5611f0e3593f36141420/doushu'
-    axios
-      .post(`http://localhost:3000/parse/build`, {
-        template: '',
-        getFormatter: `export async funtion {functionName}({ {pathParams.join(',')}, ...params}) {
-    return request(/api{path},{
-    method: '{method}',
-    data: params
-  })
-}`,
-        include: ['get /ops/supply/getSupplyById/{supplyId}'],
-        url: 'http://test-simba-ops.startdtapi.com/swagger-ui.html#/3227979357972036323376'
-      })
-      .then((res) => {
-        console.log(res.data)
-      })
-      .catch((e) => {
-        console.log(e)
-      })
+    //     axios
+    //       .post(`http://localhost:3000/parse/build`, {
+    //         template: '',
+    //         getFormatter: `export async funtion {functionName}({ {pathParams.join(',')}, ...params}) {
+    //     return request(/api{path},{
+    //     method: '{method}',
+    //     data: params
+    //   })
+    // }`,
+    //         include: ['get /ops/supply/getSupplyById/{supplyId}'],
+    //         url: 'http://test-simba-ops.startdtapi.com/swagger-ui.html#/3227979357972036323376'
+    //       })
+    //       .then((res) => {
+    //         console.log(res.data)
+    //       })
+    //       .catch((e) => {
+    //         console.log(e)
+    //       })
   },
   methods: {
     receiveInputChange(val) {
@@ -186,7 +186,9 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+}
+html, body,#app {
+  height: 100%;
 }
 .el-textarea__inner {
   height: 180px;

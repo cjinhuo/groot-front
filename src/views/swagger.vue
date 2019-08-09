@@ -141,7 +141,7 @@ export default {
           if (data && Array.isArray(data)) {
             this.$refs.tree.setCheckedKeys(data)
           } else {
-            this.$refs.tree.setCheckedKeys(['root'])
+            this.$refs.tree.ssetCheckedKeys(['root'])
           }
         })
         .then(() => {
