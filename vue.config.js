@@ -1,12 +1,12 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-
+const path = require('path');
 module.exports = {
   lintOnSave: undefined,
   publicPath: undefined,
-  outputDir: undefined,
-  assetsDir: undefined,
+  outputDir: 'dist',
+  indexPath: 'index.html',
   runtimeCompiler: undefined,
-  productionSourceMap: undefined,
+  productionSourceMap: false,
   parallel: undefined,
   chainWebpack: (config) => {
     config.devtool('source-map');
@@ -17,16 +17,11 @@ module.exports = {
     ],
   },
   devServer: {
-    proxy: {
-      '/api': {
-        target: ' https://www.easy-mock.com/mock/',
-        changeOrigin: true,
-        pathRewrite: { '^/api': '5b7a5611f0e3593f36141420' },
-      },
-    },
+    compress: true,
+    port: 9000
   },
   css: {
     modules: false,
-    sourceMap: true,
+    sourceMap: false,
   },
 };

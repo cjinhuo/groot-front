@@ -31,7 +31,7 @@
 </template>
 <script>
 import CodeTemplate from './CodeTemplate'
-import * as monaco from 'monaco-editor'
+// import * as monaco from 'monaco-editor'
 import ShowParams from './components/ShowParams'
 export default {
   name: 'FormConfig',
@@ -178,17 +178,17 @@ const isApi = 'api'
   },
   methods: {
     monacoEditorConfig() {
-      monaco.editor.create(this.$refs.getFormatter, {
-        value: `console.log('hello')`,
-        language: 'javascript',
-        quickSuggestions: false,
-        suggest: {
-          filterGraceful: false
-        },
-        minimap: {
-          enabled: false
-        }
-      })
+      // monaco.editor.create(this.$refs.getFormatter, {
+      //   value: `console.log('hello')`,
+      //   language: 'javascript',
+      //   quickSuggestions: false,
+      //   suggest: {
+      //     filterGraceful: false
+      //   },
+      //   minimap: {
+      //     enabled: false
+      //   }
+      // })
     },
     onSubmit() {
       this.$refs.form.validate(valid => {
