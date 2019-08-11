@@ -68,14 +68,14 @@ import request from '@/utils/request'
 // isApi的值可以为mock、api的便于整个文件的修改
 const isApi = 'api'
 `,
-        getFormatter: `export async funtion {functionName}({pathParams.join(',')}{pathParams.length !== 0 ? (queryParams.length !== 0 ? '...params' :  ''): (queryParams.length !== 0 ? 'params' :  '')}) {
+        getFormatter: `export async funtion {functionName}({pathParams.length !== 0 ? (queryParams.length !== 0 ? lB+pathParams.join(',')+', ...params'+rB : '') : (queryParams.length !== 0 ? 'params' :  '')}) {
     return request(/$\{@api}{path},{
     method: '{method}',
     {queryParams.length !== 0 ? 'data:params' :  ''}
   })
 }`,
-        postFormatter: `export async funtion {functionName}({pathParams.join(',')}{pathParams.length !== 0 ? (bodyParams.length !== 0 ? '...params' :  ''): (bodyParams.length !== 0 ? 'params' :  '')}) {
-    return request(/$\{@api}api{path},{
+        postFormatter: `export async funtion {functionName}({pathParams.length !== 0 ? (queryParams.length !== 0 ? lB+bodyParams.join(',')+', ...params'+rB : '') : (bodyParams.length !== 0 ? 'params' :  '')}) {
+    return request(/$\{@api}{path},{
     method: '{method}',
     {bodyParams.length !== 0 ? 'data:params' :  ''}
   })
@@ -84,7 +84,7 @@ const isApi = 'api'
       templateResult: '',
       getFormatterResult: '',
       postFormatterResult: '',
-      reg: /{[\w.!=?:(),'" ]+}/g,
+      reg: /{[\w.!=?:(),'"+ ]+}/g,
       getParamsObject: {
         method: 'Get',
         path: '/ops/supply/getById/{supplyId}',
@@ -97,7 +97,9 @@ const isApi = 'api'
             path: '/ops/supply/getById/${supplyId}',
             queryParams: '[\'projectId\']',
             bodyParams: '[]',
-            headerParams: '[]'
+            headerParams: '[]',
+            rB: '{',
+            lB: '}'
           }
         ]
       },
@@ -113,7 +115,9 @@ const isApi = 'api'
             queryParams: '[\'projectId\']',
             pathParams: '[\'supplyId\']',
             bodyParams: '[\'alertId\', \'alertOpen\', \'alertTime\']',
-            headerParams: '[]'
+            headerParams: '[]',
+            rB: '{',
+            lB: '}'
           }
         ]
       }
@@ -132,10 +136,12 @@ const isApi = 'api'
         const functionName = 'getSupplyGetById'
         const path = '/ops/supply/getById/${supplyId}'
         const method = 'GET'
-        const pathParams = []
+        const pathParams = ['supplyId']
         const queryParams = ['projectId']
         const headerParams = ['']
         const bodyParams =  []
+        const lB = '{'
+        const rB = '}'
         const result = value.replace(this.reg, (target) => {
           // .replace(/\s*/g,"") 去除空格
           const evalStr = target.replace(/[{}]/g, '')
@@ -218,7 +224,7 @@ const isApi = 'api'
     flex: 1;
 }
 /* vscode  */
-.view-line {
+/* .view-line {
   text-align: left;
-}
+} */
 </style>

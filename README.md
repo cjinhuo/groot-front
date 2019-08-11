@@ -4,26 +4,5 @@
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 注意事项
+匹配{}运行的正则是：`/{[\w.!=?:(),'"+ ]+}/g`，所以在{}里面加了@（除了正则以外的符号都可以）可以让{something}当成字符串，比如`{@api} => {api}`，

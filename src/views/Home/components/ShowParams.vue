@@ -63,6 +63,16 @@ export default {
         prop: 'bodyParams',
         label: 'bodyParams',
         width: '250px'
+      },
+      {
+        prop: 'rB',
+        label: 'rB',
+        width: '40px'
+      },
+      {
+        prop: 'lB',
+        label: 'lB',
+        width: '40px'
       }
     ]
     return {

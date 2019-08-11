@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   lintOnSave: undefined,
   publicPath: './',
-  outputDir: 'dist',
+  outputDir: 'static',
   indexPath: 'index.html',
   assetsDir: '',
   runtimeCompiler: undefined,
