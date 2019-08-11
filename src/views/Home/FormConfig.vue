@@ -13,8 +13,8 @@
           el-button(style="margin-left:20px;" type="primary" @click="onSubmit") 查看接口列表
       el-form-item(label="模板代码")
         div(class="container-textarea")
-          el-input(v-model="formData.template" type="textarea" placeholder="")
-          el-input(v-model="formData.template" :disabled="true" type="textarea" placeholder="")
+          el-input(v-model="formData.template" type="textarea" placeholder="请输入api函数上方的代码（可选）")
+          CodeTemplate(:codes="templateResult")
       el-form-item(label="get类型模板" prop="getFormatter")
         div(class="container-textarea")
           ShowParams(:singleObject="getParamsObject")
@@ -59,20 +59,29 @@ export default {
       rules,
       formData: {
         url: 'http://test-simba-ops.startdtapi.com/swagger-ui.html#',
-        template: '',
-        getFormatter: `export async funtion {functionName}({pathParams.join(',')}{pathParams.length !== 0 ? ', ...params' : ''}) {
-    return request(/api{path},{
+        template:
+        `/**
+* 以下代码属于自动生成，请勿手动修改
+*/
+import request from '@/utils/request'
+
+// isApi的值可以为mock、api的便于整个文件的修改
+const isApi = 'api'
+`,
+        getFormatter: `export async funtion {functionName}({pathParams.join(',')}{pathParams.length !== 0 ? (queryParams.length !== 0 ? '...params' :  ''): (queryParams.length !== 0 ? 'params' :  '')}) {
+    return request(/$\{@api}{path},{
     method: '{method}',
-    data: params
+    {queryParams.length !== 0 ? 'data:params' :  ''}
   })
 }`,
-        postFormatter: `export async funtion {functionName}({pathParams.join(',')}{pathParams.length !== 0 ? ', ...params' : ''}) {
-    return request(/api{path},{
+        postFormatter: `export async funtion {functionName}({pathParams.join(',')}{pathParams.length !== 0 ? (bodyParams.length !== 0 ? '...params' :  ''): (bodyParams.length !== 0 ? 'params' :  '')}) {
+    return request(/$\{@api}api{path},{
     method: '{method}',
-    data: params
+    {bodyParams.length !== 0 ? 'data:params' :  ''}
   })
 }`
       },
+      templateResult: '',
       getFormatterResult: '',
       postFormatterResult: '',
       reg: /{[\w.!=?:(),'" ]+}/g,
@@ -99,10 +108,10 @@ export default {
         tableData: [
           {
             functionName: 'postBaselineAdd',
-            pathParams: '[\'supplyId\']',
             method: 'POST',
             path: '/ops/supply/getById/${supplyId}',
             queryParams: '[\'projectId\']',
+            pathParams: '[\'supplyId\']',
             bodyParams: '[\'alertId\', \'alertOpen\', \'alertTime\']',
             headerParams: '[]'
           }
@@ -128,12 +137,13 @@ export default {
         const headerParams = ['']
         const bodyParams =  []
         const result = value.replace(this.reg, (target) => {
-          const evalStr = target.replace(/\s*/g,"").replace(/[{}]/g, '')
+          // .replace(/\s*/g,"") 去除空格
+          const evalStr = target.replace(/[{}]/g, '')
           const result = eval(evalStr)
           return eval(evalStr)
         })
-        // 过滤空行
-        const final = result.split('\n').filter(v => {
+        // 这匹配{} 中加了@就可以把{}当做字符创处理 过滤空行
+        const final = result.replace('@', '').split('\n').filter(v => {
           return v.replace(/\s*/g,"") !== ''
         })
         console.log(final)
@@ -145,17 +155,23 @@ export default {
       handler(value) {
         const functionName = 'postBaselineAdd'
         const path = '/ops/baseline/add'
-        const method = 'Post'
+        const method = 'POST'
         const pathParams = []
         const queryParams = []
         const headerParams = []
         const bodyParams =  ['alertId', 'alertOpen', 'alertTime']
         const result = value.replace(this.reg ,(target) => {
-          const evalStr = target.replace(/\s*/g,"").replace(/[{}]/g, '')
+          const evalStr = target.replace(/[{}]/g, '')
           const result = eval(evalStr)
           return eval(evalStr)
         })
         this.postFormatterResult = result
+      },
+      immediate: true
+    },
+    'formData.template': {
+      handler(value) {
+        this.templateResult = value
       },
       immediate: true
     }
