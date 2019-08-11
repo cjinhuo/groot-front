@@ -68,14 +68,14 @@ import request from '@/utils/request'
 // isApi的值可以为mock、api的便于整个文件的修改
 const isApi = 'api'
 `,
-        getFormatter: `export async funtion {functionName}({pathParams.length !== 0 ? (queryParams.length !== 0 ? lB+pathParams.join(',')+', ...params'+rB : '') : (queryParams.length !== 0 ? 'params' :  '')}) {
-    return request(/$\{@api}{path},{
+        getFormatter: `export async funtion {functionName}({pathParams.length !== 0 ? (queryParams.length !== 0 ? lB+pathParams.join(',')+', ...params'+rB : lB+pathParams+rB) : (queryParams.length !== 0 ? 'params' :  '')}) {
+    return request(\`/$\{@api}{path}\`,{
     method: '{method}',
     {queryParams.length !== 0 ? 'data:params' :  ''}
   })
 }`,
-        postFormatter: `export async funtion {functionName}({pathParams.length !== 0 ? (queryParams.length !== 0 ? lB+bodyParams.join(',')+', ...params'+rB : '') : (bodyParams.length !== 0 ? 'params' :  '')}) {
-    return request(/$\{@api}{path},{
+        postFormatter: `export async funtion {functionName}({pathParams.length !== 0 ? (bodyParams.length !== 0 ? lB+pathParams.join(',')+', ...params'+rB : lB+pathParams+rB) : (bodyParams.length !== 0 ? 'params' :  '')}) {
+    return request(\`/$\{@api}{path}\`,{
     method: '{method}',
     {bodyParams.length !== 0 ? 'data:params' :  ''}
   })
@@ -111,7 +111,7 @@ const isApi = 'api'
           {
             functionName: 'postBaselineAdd',
             method: 'POST',
-            path: '/ops/supply/getById/${supplyId}',
+            path: '/ops/baseline/add',
             queryParams: '[\'projectId\']',
             pathParams: '[\'supplyId\']',
             bodyParams: '[\'alertId\', \'alertOpen\', \'alertTime\']',
@@ -145,13 +145,10 @@ const isApi = 'api'
         const result = value.replace(this.reg, (target) => {
           // .replace(/\s*/g,"") 去除空格
           const evalStr = target.replace(/[{}]/g, '')
-          const result = eval(evalStr)
           return eval(evalStr)
         })
-        // 这匹配{} 中加了@就可以把{}当做字符创处理 过滤空行
-        const final = result.replace('@', '').split('\n').filter(v => {
-          return v.replace(/\s*/g,"") !== ''
-        })
+        // 这匹配{} 中加了@就可以把{}当做字符创处理
+        const final = this.finalReplaceMethod(result)
         this.getFormatterResult = final.join('\n')
       },
       immediate: true
@@ -167,12 +164,9 @@ const isApi = 'api'
         const bodyParams =  ['alertId', 'alertOpen', 'alertTime']
         const result = value.replace(this.reg ,(target) => {
           const evalStr = target.replace(/[{}]/g, '')
-          const result = eval(evalStr)
           return eval(evalStr)
         })
-        const final = result.replace('@', '').split('\n').filter(v => {
-          return v.replace(/\s*/g,"") !== ''
-        })
+        const final = this.finalReplaceMethod(result)
         this.postFormatterResult = final.join('\n')
       },
       immediate: true
@@ -185,6 +179,11 @@ const isApi = 'api'
     }
   },
   methods: {
+    finalReplaceMethod(str) {
+      return str.replace('@', '').split('\n').filter(v => {
+        return v.replace(/\s*/g,"") !== ''
+      })
+    },
     monacoEditorConfig() {
       // monaco.editor.create(this.$refs.getFormatter, {
       //   value: `console.log('hello')`,
