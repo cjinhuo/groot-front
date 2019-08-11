@@ -36,7 +36,6 @@ export default {
   methods: {
     onClickGenerateCodes() {
       const checkedNodes = this.$refs.tree.getCheckedNodes()
-      console.log(checkedNodes)
       const include = checkedNodes.filter(node => !!node.method).map(node => `${node.method} ${node.path}`)
       this.$emit('emitGenerateCode', include)
     }

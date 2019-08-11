@@ -77,7 +77,6 @@ export default {
       data: generateData(),
       value: [1, 2, 3, 4, 5, 6],
       filterMethod(query, item) {
-        console.log(query, item)
         return []
       },
       activeNames:'',
@@ -127,14 +126,12 @@ export default {
         const bodyParams =  ['projectId']
         const result = value.replace(/{[\w.(),' ]+}/g,(target) => {
           const evalStr = target.replace(/\s*/g,"").replace(/[{}]/g, '')
-          console.log('evalStr', evalStr)
           const result = eval(evalStr)
           return eval(evalStr)
           // const evalStr = `this.getObject[${targetTranslate}]`
 
         // return this.getObject[target.replace(/\s*/g,"").replace(/[{}]/g, '')]
         })
-        console.log('result', result)
         this.getFormatterResult = result
       },
       immediate: true

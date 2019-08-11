@@ -10,7 +10,7 @@
       el-tab-pane(label="接口列表" name="list")
         List(:apiList="apiList" @emitGenerateCode="receiveGenerateCode")
       el-tab-pane(label="代码模板" name="template")
-        div 代码模板
+        CodeTemplate(:codes="codes")
 </template>
 
 <script>
@@ -34,7 +34,8 @@ export default {
         getFormatter: '',
         postFormatter: '',
         url: ''
-      }
+      },
+      codes: ''
     }
   },
   computed: {
@@ -44,7 +45,6 @@ export default {
   },
   methods: {
     receiveGenerateCode(include) {
-      console.log({include})
       const params = Object.assign({}, this.buildParams, {include})
       this.requestBuild(params)
     },
@@ -59,7 +59,6 @@ export default {
       const { data } = await Axios.get(`${this.APIS.list}?url=${url}`)
       if (data.success) {
         this.apiList = data.data
-        console.log()
       } else {
         this.$message({
           message: data.message,
@@ -70,7 +69,8 @@ export default {
     async requestBuild(params) {
       const { data } = await Axios.post(`${this.APIS.build}`, params)
       if (data.success) {
-        console.log(data.data)
+        this.codes = data.data
+        this.activeTabName = 'template'
       } else {
         this.$message({
           message: data.message,
@@ -82,11 +82,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .container {
+  height: 100%;
+}
+.el-tabs__content {
   height: 100%;
 }
 .el-tab-pane {
   padding: 20px;
+  height: 100%;
+  overflow: auto;
 }
 </style>

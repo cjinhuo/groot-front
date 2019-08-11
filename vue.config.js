@@ -1,3 +1,5 @@
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+
 module.exports = {
   lintOnSave: undefined,
   publicPath: undefined,
@@ -8,6 +10,11 @@ module.exports = {
   parallel: undefined,
   chainWebpack: (config) => {
     config.devtool('source-map');
+  },
+  configureWebpack: {
+    plugins: [
+      new MonacoWebpackPlugin()
+    ],
   },
   devServer: {
     proxy: {
