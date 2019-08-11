@@ -17,7 +17,6 @@ export default {
   watch: {
     codes: {
       handler(value) {
-        console.log('new value')
         this.setValueToDom(value)
       },
       immediate: true

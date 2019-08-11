@@ -146,7 +146,6 @@ const isApi = 'api'
         const final = result.replace('@', '').split('\n').filter(v => {
           return v.replace(/\s*/g,"") !== ''
         })
-        console.log(final)
         this.getFormatterResult = final.join('\n')
       },
       immediate: true
@@ -165,7 +164,10 @@ const isApi = 'api'
           const result = eval(evalStr)
           return eval(evalStr)
         })
-        this.postFormatterResult = result
+        const final = result.replace('@', '').split('\n').filter(v => {
+          return v.replace(/\s*/g,"") !== ''
+        })
+        this.postFormatterResult = final.join('\n')
       },
       immediate: true
     },
