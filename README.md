@@ -10,6 +10,8 @@ npm run dev
 ```
 ### 技术栈
 
+前端：
+
 ```
 html模板：pug
 Vue cli
@@ -17,6 +19,14 @@ axios
 Vuex
 element ui
 ```
+
+后端： 项目地址:[groot-end](https://github.com/TypeInfos/groot-end)
+
+```
+nest
+typescipt
+```
+
 
 ### 使用说明
 **本工具按照rest风格规范来编写，普通接口部分适用。**[点击测试](http://45.77.87.244:8080/)
