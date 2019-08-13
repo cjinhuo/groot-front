@@ -1,4 +1,4 @@
-## 基于swagger生成api函数模板的工具（Groot）
+## 基于swagger生成api层函数模板的工具（Groot）
 
 ### 安装
 
@@ -200,7 +200,7 @@ groot-end：地址
 生成: function getList({id, projectId}){
 		return requst(/${api}/${projectId}/test/${id}')
    }
-   
+
 ```
 
 * 有时需要判断queryParams是不是为空，为空时需要做一些什么，由于是运行表达式所以可以写成三目运算符。
