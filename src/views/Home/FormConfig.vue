@@ -84,7 +84,7 @@ const isApi = 'api'
       templateResult: '',
       getFormatterResult: '',
       postFormatterResult: '',
-      reg: /{[\w.!=?:(),'"+ ]+}/g,
+      reg: /{[\w.!=?:(),/'$"+ ]+}/g,
       getParamsObject: {
         method: 'Get',
         path: '/ops/supply/getById/{supplyId}',
