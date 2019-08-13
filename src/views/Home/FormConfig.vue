@@ -26,8 +26,6 @@
           ShowParams(:singleObject="postParamsObject")
           el-input(v-model="formData.postFormatter" type="textarea" placeholder="post方法请求模板")
           CodeTemplate(:codes="postFormatterResult")
-          //- el-input(v-model="postFormatterResult" :disabled="true" type="textarea" placeholder="post方法请求模板")
-
 </template>
 <script>
 import CodeTemplate from './CodeTemplate'
@@ -68,14 +66,14 @@ import request from '@/utils/request'
 // isApi的值可以为mock、api的便于整个文件的修改
 const isApi = 'api'
 `,
-        getFormatter: `export async funtion {functionName}({pathParams.length !== 0 ? (queryParams.length !== 0 ? lB+pathParams.join(',')+', ...params'+rB : lB+pathParams+rB) : (queryParams.length !== 0 ? 'params' :  '')}) {
-    return request(\`/$\{@api}{path}\`,{
+        getFormatter: `export async function {functionName}({pathParams.length !== 0 ? (queryParams.length !== 0 ? lB+pathParams.join(',')+', ...params'+rB : lB+pathParams+rB) : (queryParams.length !== 0 ? 'params' :  '')}) {
+    return request(\`/$\{@isApi}{path}\`,{
     method: '{method}',
     {queryParams.length !== 0 ? 'data:params' :  ''}
   })
 }`,
-        postFormatter: `export async funtion {functionName}({pathParams.length !== 0 ? (bodyParams.length !== 0 ? lB+pathParams.join(',')+', ...params'+rB : lB+pathParams+rB) : (bodyParams.length !== 0 ? 'params' :  '')}) {
-    return request(\`/$\{@api}{path}\`,{
+        postFormatter: `export async function {functionName}({pathParams.length !== 0 ? (bodyParams.length !== 0 ? lB+pathParams.join(',')+', ...params'+rB : lB+pathParams+rB) : (bodyParams.length !== 0 ? 'params' :  '')}) {
+    return request(\`/$\{@isApi}{path}\`,{
     method: '{method}',
     {bodyParams.length !== 0 ? 'data:params' :  ''}
   })
@@ -210,7 +208,6 @@ const isApi = 'api'
       })
     }
   }
-
 }
 </script>
 
