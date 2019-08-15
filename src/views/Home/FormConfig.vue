@@ -82,7 +82,7 @@ const isApi = 'api'
       templateResult: '',
       getFormatterResult: '',
       postFormatterResult: '',
-      reg: /{[\w.!=?:(),/'$"+ ]+}/g,
+      reg: /{[\w.!=?:(),/'$"+\[\] ]+}/g,
       getParamsObject: {
         method: 'Get',
         path: '/ops/supply/getById/{supplyId}',
@@ -143,7 +143,13 @@ const isApi = 'api'
         const result = value.replace(this.reg, (target) => {
           // .replace(/\s*/g,"") 去除空格
           const evalStr = target.replace(/[{}]/g, '')
-          return eval(evalStr)
+          let temp = ''
+          try {
+            temp = eval(evalStr)
+          } catch (error) {
+            console.log('eval出错：', error)
+          }
+          return temp
         })
         // 这匹配{} 中加了@就可以把{}当做字符创处理
         const final = this.finalReplaceMethod(result)
