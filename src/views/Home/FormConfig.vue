@@ -159,6 +159,9 @@ const isApi = 'api'
     },
     'formData.postFormatter': {
       handler(value) {
+        const user = {}
+        eval('obj[\'aa\'] = 2')
+        console.log(obj)
         const functionName = 'postBaselineAdd'
         const path = '/ops/baseline/add'
         const method = 'POST'
@@ -200,6 +203,9 @@ const isApi = 'api'
       //     enabled: false
       //   }
       // })
+    },
+    evalConst() {
+
     },
     onSubmit() {
       this.$refs.form.validate(valid => {
