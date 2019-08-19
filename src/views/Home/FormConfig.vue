@@ -83,6 +83,7 @@ const isApi = 'api'
       getFormatterResult: '',
       postFormatterResult: '',
       reg: /{[\w.!=?:(),/'$"+\[\] ]+}/g,
+      variableReg:/^\$(\w+)\s*=\s*(\S+)\s*/g,
       getParamsObject: {
         method: 'Get',
         path: '/ops/supply/getById/{supplyId}',
@@ -131,6 +132,8 @@ const isApi = 'api'
     },
     'formData.getFormatter': {
       handler: function(value) {
+        const $ = {}
+        const replacedStr = this.variableEval(value, $)
         const functionName = 'getSupplyGetById'
         const path = '/ops/supply/getById/${supplyId}'
         const method = 'GET'
@@ -140,7 +143,7 @@ const isApi = 'api'
         const bodyParams =  []
         const lB = '{'
         const rB = '}'
-        const result = value.replace(this.reg, (target) => {
+        const result = replacedStr.replace(this.reg, (target) => {
           // .replace(/\s*/g,"") 去除空格
           const evalStr = target.replace(/[{}]/g, '')
           let temp = ''
@@ -159,9 +162,8 @@ const isApi = 'api'
     },
     'formData.postFormatter': {
       handler(value) {
-        const user = {}
-        eval('obj[\'aa\'] = 2')
-        console.log(obj)
+        let $ = {}
+        const replacedStr = this.variableEval(value, $)
         const functionName = 'postBaselineAdd'
         const path = '/ops/baseline/add'
         const method = 'POST'
@@ -169,7 +171,7 @@ const isApi = 'api'
         const queryParams = []
         const headerParams = []
         const bodyParams =  ['alertId', 'alertOpen', 'alertTime']
-        const result = value.replace(this.reg ,(target) => {
+        const result = replacedStr.replace(this.reg ,(target) => {
           const evalStr = target.replace(/[{}]/g, '')
           return eval(evalStr)
         })
@@ -186,6 +188,14 @@ const isApi = 'api'
     }
   },
   methods: {
+    variableEval(value, $) {
+      return value.replace(this.variableReg, (target) => {
+        const arr = target.replace(/\s*/g,"").replace('$', '').split('=')
+        const evalStr = `$['${arr[0]}']=${arr[1]}`
+        eval(evalStr)
+        return ''
+      })
+    },
     finalReplaceMethod(str) {
       return str.replace('@', '').split('\n').filter(v => {
         return v.replace(/\s*/g,"") !== ''
