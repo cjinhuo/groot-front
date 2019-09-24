@@ -11,10 +11,13 @@
       el-tab-pane(label="配置项" name="config")
         FormConfig(@emitGetListWithParams="receiveGetListWithParams" @emitFormData="receiveFormData")
       el-tab-pane(label="接口列表" name="list")
-        List(:apiList="apiList" @emitGenerateCode="receiveGenerateCode")
+        List(:apiList="apiList" @emitGenerateCode="receiveGenerateCode" @emitAndroidCode="receiveAndroidCode")
       el-tab-pane(label="代码模板" name="template")
         el-button(type="primary" id="copy-code" :data-clipboard-text="codes" @click="onClickCopy") 复制
         CodeTemplate(:codes="codes")
+      el-tab-pane(label="安卓代码" name="android")
+        el-button(type="primary" id="copy-android" :data-clipboard-text="androidCode" @click="onClickCopyAndroid") 复制
+        CodeTemplate(:codes="androidCode")
 </template>
 
 <script>
@@ -41,7 +44,8 @@ export default {
         url: ''
       },
       codes: '',
-      loading: false
+      loading: false,
+      androidCode: ''
     }
   },
   computed: {
@@ -50,6 +54,23 @@ export default {
     }
   },
   methods: {
+    onClickCopyAndroid() {
+      let clipBoard = new Clipboard('#copy-android')
+      clipBoard.on('success', e => {
+        this.$message({
+          message: '复制成功',
+          type: 'success'
+        })
+        clipBoard.destroy()
+      })
+      clipBoard.on('error', e => {
+        this.$message({
+          message: '复制失败',
+          type: 'error'
+        })
+        clipBoard.destroy()
+      })
+    },
     onClickCopy() {
       let clipBoard = new Clipboard('#copy-code')
       clipBoard.on('success', e => {
@@ -67,6 +88,9 @@ export default {
         clipBoard.destroy()
       })
     },
+    receiveAndroidCode(include) {
+      this.requestAndroid(include)
+    },
     receiveGenerateCode(include) {
       const params = Object.assign({}, this.buildParams, {include})
       this.requestBuild(params)
@@ -78,6 +102,23 @@ export default {
       this.activeTabName = 'list'
       this.requestListWithUrl(this.buildParams.url)
     },
+    async requestAndroid(include) {
+      console.log('include', include)
+      const params = {
+        include,
+        url: this.buildParams.url
+      }
+      this.loading = true
+      const { data } = await Axios.post(`${this.APIS.android}`, params)
+      this.loading = false
+      this.activeTabName = 'android'
+      if (data.success) {
+        this.androidCode = JSON.stringify(data.data, null, 2)
+      } else {
+        this.androidCode = data.data.errMsg
+      }
+    },
+
     async requestListWithUrl(url) {
       this.loading = true
       const { data } = await Axios.get(`${this.APIS.list}?url=${url}`)

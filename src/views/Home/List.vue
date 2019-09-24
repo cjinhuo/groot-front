@@ -1,6 +1,7 @@
 <template lang="pug">
   .list
     el-button(type="primary" @click="onClickGenerateCodes" :disabled="apiList.length === 0") 代码生成
+    el-button(type="primary" @click="onClickGenerateAndroid" :disabled="apiList.length === 0") 安卓生成
     el-tree(
       ref="tree"
       :data="apiList"
@@ -38,6 +39,11 @@ export default {
       const checkedNodes = this.$refs.tree.getCheckedNodes()
       const include = checkedNodes.filter(node => !!node.method).map(node => `${node.method} ${node.path}`)
       this.$emit('emitGenerateCode', include)
+    },
+    onClickGenerateAndroid() {
+      const checkedNodes = this.$refs.tree.getCheckedNodes()
+      const include = checkedNodes.filter(node => !!node.method).map(node => `${node.method} ${node.path}`)
+      this.$emit('emitAndroidCode', include)
     }
   }
 }
