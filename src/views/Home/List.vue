@@ -21,76 +21,77 @@
 </template>
 
 <script>
-export default {
-  name: 'List',
-  props: {
-    apiList: {
-      type: Array,
-      default:() => []
-    }
-  },
-  data() {
-    return {
-
-    }
-  },
-  methods: {
-    onClickGenerateCodes() {
-      const checkedNodes = this.$refs.tree.getCheckedNodes()
-      const include = checkedNodes.filter(node => !!node.method).map(node => `${node.method} ${node.path}`)
-      this.$emit('emitGenerateCode', include)
+  export default {
+    name: 'List',
+    props: {
+      apiList: {
+        type: Array,
+        default: () => []
+      }
     },
-    onClickGenerateAndroid() {
-      const checkedNodes = this.$refs.tree.getCheckedNodes()
-      const include = checkedNodes.filter(node => !!node.method).map(node => `${node.method} ${node.path}`)
-      this.$emit('emitAndroidCode', include)
+    data() {
+      return {}
+    },
+    created() {
+      console.log(this.abc.asd)
+    },
+    methods: {
+      onClickGenerateCodes() {
+        const checkedNodes = this.$refs.tree.getCheckedNodes()
+        const include = checkedNodes.filter(node => !!node.method).map(node => `${node.method} ${node.path}`)
+        this.$emit('emitGenerateCode', include)
+      },
+      onClickGenerateAndroid() {
+        const checkedNodes = this.$refs.tree.getCheckedNodes()
+        const include = checkedNodes.filter(node => !!node.method).map(node => `${node.method} ${node.path}`)
+        this.$emit('emitAndroidCode', include)
+      }
     }
   }
-}
 </script>
 
 <style scoped>
 .api-tree-node {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .api-tree-node .node-label {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .api-tree-node .node-method {
-    color: #fff;
-    background-color: #191919;
-    padding: 0 2px;
-    margin: 0 10px 0 0;
-    text-transform: uppercase;
-    font-size: 12px;
-    min-width: 60px;
-    text-align: center;
+  color: #fff;
+  background-color: #191919;
+  padding: 0 2px;
+  margin: 0 10px 0 0;
+  text-transform: uppercase;
+  font-size: 12px;
+  min-width: 60px;
+  text-align: center;
 }
 
 .api-tree-node .node-method.node-method-get {
-    background-color: #0f6ab4;
+  background-color: #0f6ab4;
 }
 .api-tree-node .node-method.node-method-post {
-    background-color: #10a54a;
+  background-color: #10a54a;
 }
 .api-tree-node .node-method.node-method-put {
-    background-color: #c5862b;
+  background-color: #c5862b;
 }
 .api-tree-node .node-method.node-method-delete {
-    background-color: #a41e22;
+  background-color: #a41e22;
 }
 .api-tree-node .node-method.node-method-head {
-    background-color: #ffd20f;
+  background-color: #ffd20f;
 }
 .api-tree-node .node-method.node-method-options {
-    background-color: #0f6ab4;
+  background-color: #0f6ab4;
 }
 .api-tree-node .node-method.node-method-patch {
-    background-color: #D38042;
+  background-color: #d38042;
 }
 </style>

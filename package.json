@@ -9,9 +9,14 @@
     "prettier": "prettier --write './*"
   },
   "dependencies": {
+    "@sentry/browser": "^5.16.1",
+    "@sentry/integrations": "^5.16.1",
     "axios": "^0.18.0",
     "clipboard": "^2.0.4",
     "element-ui": "^2.6.3",
+    "fundebug-javascript": "^2.4.0",
+    "fundebug-revideo": "^0.6.2",
+    "fundebug-vue": "0.0.1",
     "monaco-editor": "^0.17.1",
     "monaco-editor-webpack-plugin": "^1.7.0",
     "normalize.css": "^8.0.1",
@@ -36,6 +41,15 @@
     "eslint-plugin-vue": "^5.0.0",
     "vue-cli-plugin-pug": "^1.0.7",
     "vue-template-compiler": "^2.5.21"
+  },
+  "prettier": {
+    "printWidth": 160,
+    "singleQuote": true,
+    "semi": false,
+    "tabWidth": 2,
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "proseWrap": "preserve"
   },
   "eslintConfig": {
     "root": true,

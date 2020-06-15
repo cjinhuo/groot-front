@@ -5,37 +5,36 @@
 </template>
 
 <script>
-export default {
-  name: 'CodeTemplate',
-  props: {
-    codes: String
-  },
-  data() {
-    return {
-    }
-  },
-  watch: {
-    codes: {
-      handler(value) {
-        this.setValueToDom(value)
-      },
-      immediate: true
-    }
-  },
-  methods: {
-    setValueToDom(value) {
-      const dom = this.$refs.codeContainer
-      if (dom) {
-        const html = Prism.highlight(value, Prism.languages.javascript, 'javascript')
-        dom.innerHTML = html
-      } else {
-        setTimeout(() => {
+  export default {
+    name: 'CodeTemplate',
+    props: {
+      codes: String
+    },
+    data() {
+      return {}
+    },
+    watch: {
+      codes: {
+        handler(value) {
           this.setValueToDom(value)
-        }, 200)
+        },
+        immediate: true
+      }
+    },
+    methods: {
+      setValueToDom(value) {
+        const dom = this.$refs.codeContainer
+        if (dom) {
+          const html = Prism.highlight(value, Prism.languages.javascript, 'javascript')
+          dom.innerHTML = html
+        } else {
+          setTimeout(() => {
+            this.setValueToDom(value)
+          }, 200)
+        }
       }
     }
   }
-}
 </script>
 
 <style>

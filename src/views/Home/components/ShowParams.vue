@@ -13,76 +13,73 @@
 </template>
 
 <script>
-import TableList from './TableList'
-export default {
-  name: 'ShowParams',
-  components: {
-    TableList
-  },
-  props: {
-    singleObject: {
-      type: Object,
-      default:() => ({
-        method: 'Get',
-        path: '',
-        description: '',
-        tableData: []
-      })
-    }
-
-  },
-  data() {
-    const columns = [
-      {
-        prop: 'functionName',
-        label: 'functionName',
-        width: '150px'
-      },
-      {
-        prop: 'method',
-        label: 'method'
-      },
-      {
-        prop: 'path',
-        label: 'path',
-        width: '250px'
-      },
-      {
-        prop: 'pathParams',
-        label: 'pathParams'
-      },
-      {
-        prop: 'queryParams',
-        label: 'queryParams'
-      },
-      {
-        prop: 'headerParams',
-        label: 'headerParams'
-      },
-      {
-        prop: 'bodyParams',
-        label: 'bodyParams',
-        width: '250px'
-      },
-      {
-        prop: 'rB',
-        label: 'rB',
-        width: '40px'
-      },
-      {
-        prop: 'lB',
-        label: 'lB',
-        width: '40px'
+  import TableList from './TableList'
+  export default {
+    name: 'ShowParams',
+    components: {
+      TableList
+    },
+    props: {
+      singleObject: {
+        type: Object,
+        default: () => ({
+          method: 'Get',
+          path: '',
+          description: '',
+          tableData: []
+        })
       }
-    ]
-    return {
-      columns
-    }
-  },
-  methods: {
-
+    },
+    data() {
+      const columns = [
+        {
+          prop: 'functionName',
+          label: 'functionName',
+          width: '150px'
+        },
+        {
+          prop: 'method',
+          label: 'method'
+        },
+        {
+          prop: 'path',
+          label: 'path',
+          width: '250px'
+        },
+        {
+          prop: 'pathParams',
+          label: 'pathParams'
+        },
+        {
+          prop: 'queryParams',
+          label: 'queryParams'
+        },
+        {
+          prop: 'headerParams',
+          label: 'headerParams'
+        },
+        {
+          prop: 'bodyParams',
+          label: 'bodyParams',
+          width: '250px'
+        },
+        {
+          prop: 'rB',
+          label: 'rB',
+          width: '40px'
+        },
+        {
+          prop: 'lB',
+          label: 'lB',
+          width: '40px'
+        }
+      ]
+      return {
+        columns
+      }
+    },
+    methods: {}
   }
-}
 </script>
 
 <style scoped>
@@ -95,8 +92,8 @@ export default {
   border: 1px solid #c3d9ec;
 }
 .header-post {
-    background-color: #e7f6ec;
-    border: 1px solid #c3e8d1;
+  background-color: #e7f6ec;
+  border: 1px solid #c3e8d1;
 }
 .show-params-header-method {
   margin-right: 20px;
