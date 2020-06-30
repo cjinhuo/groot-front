@@ -7,15 +7,15 @@ import './plugins/prism/index.css'
 import './plugins/prism/index.js'
 import store from './store'
 import { MitoVue } from './bundle'
-// import fundebugVue from 'fundebug-vue'
-// var fundebug = require('fundebug-javascript')
-// import * as Sentry from '@sentry/browser'
-// import { Vue as VueIntegration } from '@sentry/integrations'
-// require('fundebug-revideo')
-// fundebug.apikey = 'e4a26e68c49fc9293487c80d4070a006dd79945228fb0cd99f61249bca062971'
-// fundebugVue(fundebug, Vue)
-console.log(MitoVue)
-Vue.use(MitoVue)
+import * as Sentry from '@sentry/browser'
+import { Vue as VueIntegration } from '@sentry/integrations'
+import * as fundebug from 'fundebug-javascript'
+import fundebugVue from 'fundebug-vue'
+fundebug.apikey = 'ef5164f3c33ee8697e00306dd8a949c5e023d14b75bfe5e2c1f0f5d2ff0559dc'
+fundebugVue(fundebug, Vue)
+require('fundebug-revideo')
+// console.log(MitoVue)
+// Vue.use(MitoVue)
 // Vue.config.productionTip = false
 // Sentry.init({
 //   dsn: 'https://95a98eef06fc4eb3a049730cfa8d6248@o403103.ingest.sentry.io/5265260',
